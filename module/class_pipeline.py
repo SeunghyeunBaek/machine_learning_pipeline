@@ -7,10 +7,10 @@ import logging
 class Operator(OperatorBase):
 
 
-    def __init__(self, name: str, function: Callable, args: dict=dict(), description: str=""):
+    def __init__(self, function: Callable, args: dict=dict(), description: str=""):
                 
-        self.name = name
         self.function = function
+        self.name = self.function.__name__
         self.args = args
         self.description = description
         self.output = None
@@ -46,11 +46,18 @@ class PipeLine(PipeLineBase):
             args = self.args if i == 0 else self.output_list[i-1]
             operator.set_args(args)
 
+            # 실행 시간 출력
             start_time = time()
             operator.run()
             elapsed_time = round(time() - start_time, 3)
-            msg = f"{i} operator {operator.name} elapsed at {elapsed_time}s"
+            msg = f"{i} operator {operator.name} elapsed at {elapsed_time} s"
 
+            # Operator 내부 메시지를 설정했을 경우 내부 메시지 추가
+            if operator.name in operator.output['log'].keys():
+                operator_inner_msg = operator.output['log'][operator.name]
+                msg = msg + '\n' + operator_inner_msg
+
+            # Logger를 등록했다면 로깅
             if self.logger:
                 self.logger.info(msg)
 
@@ -105,4 +112,6 @@ class PipeLine(PipeLineBase):
             msg = f"No operator exists"
 
         print(msg)
+        
+        return msg
     
