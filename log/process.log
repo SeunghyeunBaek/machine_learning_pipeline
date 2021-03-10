@@ -16,3 +16,26 @@
 2021-03-10 01:03:58,230 | process | INFO | 2 operator replace_title elapsed at 0.006s
 2021-03-10 01:03:58,233 | process | INFO | 3 operator map_title elapsed at 0.003s
 2021-03-10 01:03:58,236 | process | INFO | 4 operator convert_categorical_feature elapsed at 0.002s
+2021-03-10 01:05:43,881 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:05:43,881 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:05:43,885 | process | INFO | 0 operator drop_column elapsed at 0.003s
+2021-03-10 01:05:43,893 | process | INFO | 1 operator extract_title elapsed at 0.008s
+2021-03-10 01:05:43,900 | process | INFO | 2 operator replace_title elapsed at 0.006s
+2021-03-10 01:05:43,903 | process | INFO | 3 operator map_title elapsed at 0.003s
+2021-03-10 01:05:43,905 | process | INFO | 4 operator convert_categorical_feature elapsed at 0.002s
+2021-03-10 01:09:43,811 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:09:43,812 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:09:43,815 | process | INFO | 0 operator drop_column elapsed at 0.003s
+2021-03-10 01:09:43,823 | process | INFO | 1 operator extract_title elapsed at 0.008s
+2021-03-10 01:09:43,830 | process | INFO | 2 operator replace_title elapsed at 0.006s
+2021-03-10 01:09:43,833 | process | INFO | 3 operator map_title elapsed at 0.003s
+2021-03-10 01:09:43,835 | process | INFO | 4 operator convert_categorical_feature elapsed at 0.002s
+2021-03-10 01:14:06,179 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:14:06,180 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:16:11,360 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:16:11,361 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:16:11,365 | process | INFO | 0 operator drop_column elapsed at 0.003s
+2021-03-10 01:16:11,373 | process | INFO | 1 operator extract_title elapsed at 0.008s
+2021-03-10 01:16:11,380 | process | INFO | 2 operator replace_title elapsed at 0.006s
+2021-03-10 01:16:11,382 | process | INFO | 3 operator map_title elapsed at 0.003s
+2021-03-10 01:16:11,385 | process | INFO | 4 operator convert_categorical_feature elapsed at 0.002s

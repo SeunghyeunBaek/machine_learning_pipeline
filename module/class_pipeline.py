@@ -27,8 +27,9 @@ class Operator(OperatorBase):
 class PipeLine(PipeLineBase):
 
 
-    def __init__(self, name: str='pipeline'):
+    def __init__(self, name: str='pipeline', args: dict=dict()):
         self.name = name
+        self.args = args
         self.operator_list = list()
         self.output_list = list()
         self.logger = None
@@ -41,10 +42,10 @@ class PipeLine(PipeLineBase):
     def run(self):
         
         for i, operator in enumerate(self.operator_list):
-
-            if i != 0:
-                operator.set_args(self.output_list[i-1])
             
+            args = self.args if i == 0 else self.output_list[i-1]
+            operator.set_args(args)
+
             start_time = time()
             operator.run()
             elapsed_time = round(time() - start_time, 3)

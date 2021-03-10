@@ -23,9 +23,10 @@ if __name__ == '__main__':
     #get_eda_report(df=merge_df, path=config_dict['path']['eda_report'])
     logger.info(f"Save eda report {config_dict['path']['eda_report']}")
 
-    # 파이프라인 정의
-    pipeline = PipeLine(name='preprocess')
-    pipeline.set_logger(logger)
+    # pipeline 선언
+    args = {'df': merge_df}  # 초기 입력값
+    pipeline = PipeLine(name='preprocess', args=args)  # pipeline 객체 생성  
+    pipeline.set_logger(logger)  # logger 정의
 
     """
     1. Drop columns v
@@ -38,32 +39,28 @@ if __name__ == '__main__':
     8. Family size
     """
 
-    args = {'df': merge_df}
+    # operator 객체 생성
     drop_column_op = Operator(name='drop_column',
                                function=drop_column,
-                               args=args,
                                description="Drop Ticket, Carbin column")
-
 
     extract_title_op = Operator(name='extract_title',
                                  function=extract_title,
                                  description="Extract title from Name column")
 
-
     replace_title_op = Operator(name='replace_title',
                                  function=replace_title,
                                  description='Replace title(Rare, Miss, Mrs)')
 
-    
     map_title_op = Operator(name='map_title',
                              function=map_title,
                              description='Mapping title to integer')
     
-
     convert_categorical_column_op = Operator(name='convert_categorical_feature',
                                               function=convert_categorical_column,
                                               description='convert female, male to 0, 1')
 
+    # pipeline 에 operator 등록
     operator_list = [drop_column_op,
                     extract_title_op, 
                     replace_title_op,
@@ -71,7 +68,9 @@ if __name__ == '__main__':
                     convert_categorical_column_op]
 
     pipeline.add_operator(operator_list)
+
+    # pipline operator 조회
     pipeline.show_operator(description=True)
 
-    # 파이프라인 실행
+    # pipeline 실행
     pipeline.run()
