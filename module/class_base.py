@@ -9,20 +9,20 @@ class PipeLineBase(metaclass=ABCMeta):
     
 
     @abstractmethod
-    def remove_operation(self):
+    def remove_operator(self):
         pass
 
 
     @abstractmethod
-    def add_operation(self):
+    def add_operator(self):
         pass
 
     @abstractmethod
-    def show_operation(self):
+    def show_operator(self):
         pass
 
 
-class OperationBase(metaclass=ABCMeta):
+class OperatorBase(metaclass=ABCMeta):
 
     @abstractmethod
     def run(self):

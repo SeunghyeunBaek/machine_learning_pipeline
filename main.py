@@ -1,6 +1,6 @@
-from module.class_base import PipeLine, Operation  # class 정의
+from module.class_pipeline import PipeLine, Operator  # class 정의
 from module.util import load_yml, set_logger  # util
-from module.func_operation import *  # opeartion 함수 정의
+from module.func_operator import *  # opeartion 함수 정의
 
 import pandas as pd
 import os
@@ -39,39 +39,39 @@ if __name__ == '__main__':
     """
 
     args = {'df': merge_df}
-    drop_column_op = Operation(name='drop_column',
+    drop_column_op = Operator(name='drop_column',
                                function=drop_column,
                                args=args,
                                description="Drop Ticket, Carbin column")
 
 
-    extract_title_op = Operation(name='extract_title',
+    extract_title_op = Operator(name='extract_title',
                                  function=extract_title,
                                  description="Extract title from Name column")
 
 
-    replace_title_op = Operation(name='replace_title',
+    replace_title_op = Operator(name='replace_title',
                                  function=replace_title,
                                  description='Replace title(Rare, Miss, Mrs)')
 
     
-    map_title_op = Operation(name='map_title',
+    map_title_op = Operator(name='map_title',
                              function=map_title,
                              description='Mapping title to integer')
     
 
-    convert_categorical_column_op = Operation(name='convert_categorical_feature',
+    convert_categorical_column_op = Operator(name='convert_categorical_feature',
                                               function=convert_categorical_column,
                                               description='convert female, male to 0, 1')
 
-    operation_list = [drop_column_op,
-                      extract_title_op, 
-                      replace_title_op,
-                      map_title_op, 
-                      convert_categorical_column_op]
+    operator_list = [drop_column_op,
+                    extract_title_op, 
+                    replace_title_op,
+                    map_title_op, 
+                    convert_categorical_column_op]
 
-    pipeline.add_operation(operation_list)
-    pipeline.show_operation(description=True)
+    pipeline.add_operator(operator_list)
+    pipeline.show_operator(description=True)
 
     # 파이프라인 실행
     pipeline.run()

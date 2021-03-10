@@ -1,16 +1,13 @@
-from module.class_base import PipeLineBase, OperationBase
+from module.class_base import PipeLineBase, OperatorBase
 from collections.abc import Callable
 from time import time
 import logging
 
 
-class Operation(OperationBase):
+class Operator(OperatorBase):
 
 
-    def __init__(self, name: str,
-                function: Callable,
-                args: dict=dict(),
-                description: str=""):
+    def __init__(self, name: str, function: Callable, args: dict=dict(), description: str=""):
                 
         self.name = name
         self.function = function
@@ -32,7 +29,7 @@ class PipeLine(PipeLineBase):
 
     def __init__(self, name: str='pipeline'):
         self.name = name
-        self.operation_list = list()
+        self.operator_list = list()
         self.output_list = list()
         self.logger = None
 
@@ -43,15 +40,15 @@ class PipeLine(PipeLineBase):
 
     def run(self):
         
-        for i, operation in enumerate(self.operation_list):
+        for i, operator in enumerate(self.operator_list):
 
             if i != 0:
-                operation.set_args(self.output_list[i-1])
+                operator.set_args(self.output_list[i-1])
             
             start_time = time()
-            operation.run()
+            operator.run()
             elapsed_time = round(time() - start_time, 3)
-            msg = f"{i} Operation {operation.name} elapsed at {elapsed_time}s"
+            msg = f"{i} operator {operator.name} elapsed at {elapsed_time}s"
 
             if self.logger:
                 self.logger.info(msg)
@@ -59,53 +56,52 @@ class PipeLine(PipeLineBase):
             else:
                 print(msg)
 
-            self.output_list.append(operation.output)
+            self.output_list.append(operator.output)
 
 
-    def add_operation(self, operation:Operation):
+    def add_operator(self, operator:Operator):
         
-        if type(operation) == list:
-            self.operation_list += operation
-            msg = f"Operation added: {[element.name for element in operation]}"
+        if type(operator) == list:
+            self.operator_list += operator
+            msg = f"Operator added: {[element.name for element in operator]}"
 
         else:    
-            self.operation_list.append(operation)
-            msg = f"Opeartion added {operation.name}"
+            self.operator_list.append(operator)
+            msg = f"Opeartion added {operator.name}"
 
         print(msg)
 
 
-    def remove_operation(self, name: str):
+    def remove_operator(self, name: str):
 
-        operation_name_list = [operation.name for operation in self.operation_list]
+        operator_name_list = [operator.name for operator in self.operator_list]
         
-        if name in operation_name_list:
-            self.operation_list = [operation for operation in self.operation_list if operation.name != name]
-            msg = f"Operation {name} removed"
+        if name in operator_name_list:
+            self.operator_list = [operator for operator in self.operator_list if operator.name != name]
+            msg = f"Operator {name} removed"
 
         else:
-            msg = f"No operation {name} exists"
+            msg = f"No operator {name} exists"
 
         print(msg)
 
 
-    def show_operation(self, description=False):
+    def show_operator(self, description=False):
         
-        msg = f"Pipeline {self.name} operation list\n"
+        msg = f"Pipeline {self.name} operator list\n"
 
-        if self.operation_list:
+        if self.operator_list:
 
-            for i, operation in enumerate(self.operation_list):
+            for i, operator in enumerate(self.operator_list):
 
                 if description:
-                    msg += f"\t{i} {operation.name}\n\t\t{operation.description}\n"
+                    msg += f"\t{i} {operator.name}\n\t\t{operator.description}\n"
 
                 else:
-                    msg += f"\t{i} {operation.name}\n"
+                    msg += f"\t{i} {operator.name}\n"
 
         else:
-            msg = f"No operation exists"
+            msg = f"No operator exists"
 
         print(msg)
-
     

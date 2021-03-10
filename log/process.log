@@ -7,3 +7,12 @@
 2021-03-09 09:19:03,624 | process | INFO | 2 Operation replace_title elapsed at 0.006s
 2021-03-09 09:19:03,627 | process | INFO | 3 Operation map_title elapsed at 0.003s
 2021-03-09 09:19:03,629 | process | INFO | 4 Operation convert_categorical_feature elapsed at 0.002s
+2021-03-10 01:03:50,261 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:03:50,261 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:03:58,211 | process | INFO | Load data train: (891, 12) test: (418, 11)
+2021-03-10 01:03:58,212 | process | INFO | Save eda report /workspace/pipeline/report/eda.html
+2021-03-10 01:03:58,216 | process | INFO | 0 operator drop_column elapsed at 0.003s
+2021-03-10 01:03:58,224 | process | INFO | 1 operator extract_title elapsed at 0.008s
+2021-03-10 01:03:58,230 | process | INFO | 2 operator replace_title elapsed at 0.006s
+2021-03-10 01:03:58,233 | process | INFO | 3 operator map_title elapsed at 0.003s
+2021-03-10 01:03:58,236 | process | INFO | 4 operator convert_categorical_feature elapsed at 0.002s
