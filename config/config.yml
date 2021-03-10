@@ -1,0 +1,8 @@
+
+path:
+  train_data: /workspace/pipeline/data/titanic/train.csv
+  test_data: /workspace/pipeline/data/titanic/test.csv
+  eda_report: /workspace/pipeline/report/eda.html
+
+dir:
+  log: /workspace/pipeline/log/
