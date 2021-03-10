@@ -1,6 +1,13 @@
-import pandas as pd
 from itertools import product  # impute age
+import pandas as pd
 
+
+"""
+def function_name(args: dict)-> dict
+    ...
+
+    return args
+"""
 
 def drop_column(args: dict) -> dict:
     drop_column_list = ['Ticket', 'Cabin']
@@ -45,13 +52,12 @@ def convert_categorical_column(args: dict)-> dict:
     return args
 
 
-def impute_age(args: dict)-> dict:    
-
+def impute_age(args: dict)-> dict:
     sex_idx = [0, 1]
     pclass_idx = [1, 2, 3]
     msg = f"\tNumber of na Age row: {args['df']['Age'].isna().sum()}\n"
+
     for sex_id, pclass_id in product(sex_idx, pclass_idx):
-        
         selected_age = args['df'].query(f"Sex=={sex_id} & Pclass=={pclass_id}")['Age'].dropna()
         guessed_age = selected_age.median()
         guessed_age = int(guessed_age/.5 + .5) * .5
@@ -71,7 +77,6 @@ def impute_age(args: dict)-> dict:
 
 
 def group_age(args: dict)-> dict:
-
     args['df'].loc[(args['df']['Age'] <= 16), 'Age'] = 0
     args['df'].loc[(args['df']['Age'] > 16) & (args['df']['Age'] <= 32), 'Age'] = 1
     args['df'].loc[(args['df']['Age'] > 32) & (args['df']['Age'] <= 48), 'Age'] = 2
@@ -82,7 +87,6 @@ def group_age(args: dict)-> dict:
 
 
 def make_new_feature(args: dict)-> dict:
-
     family_size = args['df']['SibSp'] + args['df']['Parch'] + 1
     is_alone = family_size.apply(lambda x: 1 if x == 1 else 0)
     age_pclass = args['df']['Age'] * args['df']['Pclass']

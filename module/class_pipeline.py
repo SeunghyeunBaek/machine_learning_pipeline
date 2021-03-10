@@ -1,5 +1,6 @@
 from module.class_base import PipeLineBase, OperatorBase
 from collections.abc import Callable
+from module.util import save_pickle
 from time import time
 import logging
 
@@ -27,12 +28,16 @@ class Operator(OperatorBase):
 class PipeLine(PipeLineBase):
 
 
-    def __init__(self, name: str='pipeline', args: dict=dict()):
+    def __init__(self, name: str='pipeline'):
         self.name = name
-        self.args = args
+        self.args = dict()
         self.operator_list = list()
         self.output_list = list()
         self.logger = None
+
+
+    def set_args(self, args: dict):
+        self.args = args
 
 
     def set_logger(self, logger: logging.RootLogger):
@@ -115,3 +120,18 @@ class PipeLine(PipeLineBase):
         
         return msg
     
+
+    def dump(self, path: str, data_only=False, initiate_data=True):
+
+        
+        if data_only:
+            save_pickle(path, obj=self.output_list[-1])
+        
+        else:
+
+            if initiate_data:
+                self.args = dict()
+                self.output_list = list()
+
+            save_pickle(path, obj=self)
+            

@@ -1,16 +1,31 @@
 # import pandas_profiling
 import pandas as pd
+import pickle
 import logging
 import yaml
 import os
 
 
-def load_yml(path):
+def load_yml(path)-> dict:
 
     with open(path) as f:
 
         obj = yaml.load(f, Loader=yaml.FullLoader)
 
+    return obj
+
+
+def save_pickle(path, obj):
+
+    with open(path, 'wb') as f:
+        pickle.dump(obj, f, pickle.HIGHEST_PROTOCOL)
+
+
+def load_pickle(path)-> object:
+
+    with open(path, 'rb') as f:
+        obj = pickle.load(f)
+    
     return obj
 
 

@@ -28,3 +28,8 @@ class OperatorBase(metaclass=ABCMeta):
     def run(self):
         pass
 
+
+class ModelBase(metaclass=ABCMeta):
+
+    pass
+
