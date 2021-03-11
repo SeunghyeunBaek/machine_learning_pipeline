@@ -1,0 +1,19 @@
+2021-03-11 02:43:41,753 | run_pipeline | INFO | Load data train: (891, 12)
+2021-03-11 02:43:41,759 | run_pipeline | INFO | 0 operator drop_column elapsed at 0.003 s
+2021-03-11 02:43:41,765 | run_pipeline | INFO | 1 operator extract_title elapsed at 0.006 s
+2021-03-11 02:43:41,771 | run_pipeline | INFO | 2 operator replace_title elapsed at 0.006 s
+2021-03-11 02:43:41,774 | run_pipeline | INFO | 3 operator map_title elapsed at 0.003 s
+2021-03-11 02:43:41,781 | run_pipeline | INFO | 4 operator convert_categorical_column elapsed at 0.006 s
+2021-03-11 02:43:41,857 | run_pipeline | INFO | 5 operator impute_age elapsed at 0.076 s
+	Number of na Age row: 177
+	impute age Sex: 0 Pclass: 1 Age imputed as 40.0 21 rows
+	impute age Sex: 0 Pclass: 2 Age imputed as 30.0 9 rows
+	impute age Sex: 0 Pclass: 3 Age imputed as 25.0 94 rows
+	impute age Sex: 1 Pclass: 1 Age imputed as 35.0 9 rows
+	impute age Sex: 1 Pclass: 2 Age imputed as 28.0 2 rows
+	impute age Sex: 1 Pclass: 3 Age imputed as 21.5 42 rows
+
+2021-03-11 02:43:41,865 | run_pipeline | INFO | 6 operator group_age elapsed at 0.008 s
+2021-03-11 02:43:41,871 | run_pipeline | INFO | 7 operator make_new_feature elapsed at 0.006 s
+2021-03-11 02:43:41,879 | run_pipeline | INFO | 8 operator convert_numeric_feature elapsed at 0.008 s
+2021-03-11 02:43:41,881 | run_pipeline | INFO | Save data /workspace/pipeline/output/data/train_processed_data.pkl

@@ -1,11 +1,12 @@
-from module.class_base import PipeLineBase, OperatorBase
+from module.class_base import BasePipeline, BaseOperator
 from collections.abc import Callable
 from module.util import save_pickle
+from copy import deepcopy
 from time import time
 import logging
 
 
-class Operator(OperatorBase):
+class Operator(BaseOperator):
 
 
     def __init__(self, function: Callable, args: dict=dict(), description: str=""):
@@ -25,21 +26,23 @@ class Operator(OperatorBase):
         self.output = self.function(self.args)
 
 
-class PipeLine(PipeLineBase):
+class Pipeline(BasePipeline):
 
 
-    def __init__(self, name: str='pipeline'):
+    def __init__(self, name: str='pipeline', logger: logging.RootLogger=None):
         self.name = name
         self.args = dict()
         self.operator_list = list()
         self.output_list = list()
-        self.logger = None
+        self.logger = logger
+        #TODO: Pipeline 병합 시 기록
+        # self.merge_dict = {'pipeline': [self], 'name': [self.name]}
 
 
     def set_args(self, args: dict):
         self.args = args
 
-
+    #TODO: Depreceted, init 함수에 포함
     def set_logger(self, logger: logging.RootLogger):
         self.logger = logger
 
@@ -101,17 +104,17 @@ class PipeLine(PipeLineBase):
 
     def show_operator(self, description=False):
         
-        msg = f"Pipeline {self.name} operator list\n"
+        msg = f"Pipeline `{self.name}` operator list\n"
 
         if self.operator_list:
 
             for i, operator in enumerate(self.operator_list):
 
                 if description:
-                    msg += f"\t{i} {operator.name}\n\t\t{operator.description}\n"
+                    msg += f"\t{i} `{operator.name}`\n\t\t{operator.description}\n"
 
                 else:
-                    msg += f"\t{i} {operator.name}\n"
+                    msg += f"\t{i} `{operator.name}`\n"
 
         else:
             msg = f"No operator exists"
@@ -121,17 +124,62 @@ class PipeLine(PipeLineBase):
         return msg
     
 
-    def dump(self, path: str, data_only=False, initiate_data=True):
+    def save(self, path: str, clear_data=True):
+        pipeline = deepcopy(self)
 
+        if clear_data:
+            pipeline.args = dict()
+            pipeline.output_list = list()
         
-        if data_only:
-            save_pickle(path, obj=self.output_list[-1])
+        save_pickle(path, obj=pipeline)
+        msg = f"Pipeline `{self.name}` saved {path}"
+
+        if self.logger:
+            self.logger.info(msg) 
+
+        else:
+            print(msg)
+
+        del pipeline
+
+
+    def save_data(self, path: str, final_only: bool=True):
+        
+        #TODO 예외처리: output_list 에 원소가 없을 때
+        data = self.output_list[-1] if final_only else self.output_list
+        save_pickle(path, self)
+        msg = f"Save data {path}"
+
+        if self.logger:
+            self.logger.info(msg)
+
+        else:
+            print(msg)
+
+    #TODO: pipeline 병합 시 기록, show_merge_history 에서 확인
+    def merge(self, pipeline, show_operator:bool=True):
+        # self.merge_dict['pipeline'].append(pipeline)
+        # self.merge_dict['name'].append(pipeline.name)
+
+        self.operator_list.extend(pipeline.operator_list)
+
+        msg = f"Merge pipeline `{self.name}`, {pipeline.name}"
+        front_pipeline_operator_msg = self.show_operator()
+        back_pipeline_operator_msg = pipeline.show_operator()
+
+        msg = msg + '\n' + f"`{self.name}`"
+        msg = msg + '\n' + front_pipeline_operator_msg
+        msg = msg + '\n' + f"`{pipeline.name}`"
+        msg = msg + '\n' + back_pipeline_operator_msg
+
+        if self.logger:
+            self.logger.info(msg)
         
         else:
+            print(msg)
+        
+        # print(self.operator_list)
+        
 
-            if initiate_data:
-                self.args = dict()
-                self.output_list = list()
 
-            save_pickle(path, obj=self)
-            
+    

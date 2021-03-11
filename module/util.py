@@ -29,13 +29,6 @@ def load_pickle(path)-> object:
     return obj
 
 
-# def get_eda_report(df:pd.DataFrame, path:str)-> None:
-#     report = df.profile_report()
-#     report.to_file(path)
-
-#     return None
-
-
 def set_logger(name: str, dir: str)-> logging.RootLogger:
 
     logger = logging.getLogger(name)

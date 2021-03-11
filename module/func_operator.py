@@ -97,13 +97,29 @@ def make_new_feature(args: dict)-> dict:
 
     return args
 
-def convert_numeric_feature(args: dict)-> dict:
 
+def convert_numeric_feature(args: dict)-> dict:
     args['df']['Fare'].fillna(args['df']['Fare'].dropna().median(), inplace=True)
     args['df'].loc[ args['df']['Fare'] <= 7.91, 'Fare'] = 0
     args['df'].loc[(args['df']['Fare'] > 7.91) & (args['df']['Fare'] <= 14.454), 'Fare'] = 1
     args['df'].loc[(args['df']['Fare'] > 14.454) & (args['df']['Fare'] <= 31), 'Fare']   = 2
     args['df'].loc[ args['df']['Fare'] > 31, 'Fare'] = 3
     args['df']['Fare'] = args['df']['Fare'].astype(int)
+
+    return args
+
+
+def select_feature_ver1(args: dict)-> dict:
+
+    feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass','Pclass']
+    args['df'] = args['df'][feature_list]
+
+    return args
+
+
+def select_feature_ver2(args: dict)-> dict:
+
+    feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass']
+    args['df'] = args['df'][feature_list]
 
     return args

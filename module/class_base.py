@@ -1,7 +1,7 @@
 from abc import ABCMeta, abstractmethod
 from collections.abc import Callable
 
-class PipeLineBase(metaclass=ABCMeta):
+class BasePipeline(metaclass=ABCMeta):
     
     @abstractmethod
     def run(self):
@@ -22,14 +22,29 @@ class PipeLineBase(metaclass=ABCMeta):
         pass
 
 
-class OperatorBase(metaclass=ABCMeta):
+
+class BaseOperator(metaclass=ABCMeta):
 
     @abstractmethod
     def run(self):
         pass
 
 
-class ModelBase(metaclass=ABCMeta):
 
-    pass
+class BaseModel(metaclass=ABCMeta):
+
+    @abstractmethod
+    def load_architecture(self):
+        pass
+    
+    @abstractmethod
+    def train(self):
+        pass
+
+    @abstractmethod
+    def predict(self):
+        pass
+
+
+
 

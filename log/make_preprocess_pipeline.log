@@ -1,0 +1,22 @@
+2021-03-11 02:41:53,096 | make_preprocess_pipeline | INFO | Operator list
+Pipeline `preprocess` operator list
+	0 `drop_column`
+		Drop Ticket, Carbin column
+	1 `extract_title`
+		Extract title from Name column
+	2 `replace_title`
+		Replace title(Rare, Miss, Mrs)
+	3 `map_title`
+		Mapping title to integer
+	4 `convert_categorical_column`
+		Convert female, male to 0, 1
+	5 `impute_age`
+		Impute age as median for each sex, pclass
+	6 `group_age`
+		Make age groups
+	7 `make_new_feature`
+		Make FamilySize, IsAlone, AgePclass
+	8 `convert_numeric_feature`
+		Group Fare
+
+2021-03-11 02:41:53,098 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
