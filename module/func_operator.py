@@ -111,8 +111,11 @@ def convert_numeric_feature(args: dict)-> dict:
 
 def select_feature_ver1(args: dict)-> dict:
 
-    feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass','Pclass']
+    feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass','Pclass', 'Survived']
     args['df'] = args['df'][feature_list]
+
+    msg = f"\tColumn {args['df'].columns.tolist()} selected"
+    args['log']['select_feature_ver1'] = msg
 
     return args
 

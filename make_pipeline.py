@@ -46,6 +46,9 @@ if __name__ == '__main__':
     convert_numeric_feature_op = Operator(function=convert_numeric_feature,
                                           description='Group Fare')
 
+    select_feature_op = Operator(function=select_feature_ver1,
+                                 description='Select 8 feature')
+
     # pipeline에 operator 등록
     operator_list = [drop_column_op,
                     extract_title_op, 
@@ -55,7 +58,8 @@ if __name__ == '__main__':
                     impute_age_op,
                     group_age_op,
                     make_new_feature_op,
-                    convert_numeric_feature_op]
+                    convert_numeric_feature_op,
+                    select_feature_op]
 
     preprocess_pipe.add_operator(operator_list)
 
@@ -66,12 +70,4 @@ if __name__ == '__main__':
     # pipeline 저장
     preprocess_pipe.save(path=os.path.join(PIPELINE_DIR, 'preprocess_pipeline.pkl'))
 
-    # pipeline 저장
-    # preprocess_pipe.save(path=os.path.join(PIPELINE_DIR, "pipeline_prerprocess.pkl"))
-    # feature_selection_pipe_a.add_operator(select_feature_ver1_op)
-    # feature_selection_pipe_b.add_operator(select_feature_ver2_op)
-
     # TODO: pipeline 분기 설정
-    # preprocess_pipe_a = deepcopy(preprocess_pipe).merge(pipeline=feature_selection_pipe_a)
-    # preprocess_pipe_b = deepcopy(preprocess_pipe).merge(pipeline=feature_selection_pipe_b)
-    

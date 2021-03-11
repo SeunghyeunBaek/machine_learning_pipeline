@@ -38,6 +38,10 @@ class BaseModel(metaclass=ABCMeta):
         pass
     
     @abstractmethod
+    def save_weight(self):
+        pass
+
+    @abstractmethod
     def train(self):
         pass
 

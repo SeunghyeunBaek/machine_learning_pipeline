@@ -1,0 +1,10 @@
+data:
+  n_feature: 8
+  n_class: 2
+  target: Survived
+
+train:
+  batch_size: 64
+  n_epoch: 10000
+  learning_rate: 0.001
+  

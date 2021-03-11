@@ -29,19 +29,21 @@ def load_pickle(path)-> object:
     return obj
 
 
-def set_logger(name: str, dir: str)-> logging.RootLogger:
+def set_logger(name: str, dir: str, show_logging=True)-> logging.RootLogger:
 
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     
     formatter = logging.Formatter('%(asctime)s | %(name)s | %(levelname)s | %(message)s')
+    
     stream_handler = logging.StreamHandler()
     file_handler = logging.FileHandler(os.path.join(dir, name+'.log'))
 
     stream_handler.setFormatter(formatter)
     file_handler.setFormatter(formatter)
 
-    logger.addHandler(stream_handler)
+    if show_logging:
+        logger.addHandler(stream_handler)
     logger.addHandler(file_handler)
 
     return logger

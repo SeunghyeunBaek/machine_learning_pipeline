@@ -1,4 +1,5 @@
-2021-03-11 02:41:53,096 | make_preprocess_pipeline | INFO | Operator list
+2021-03-11 07:00:25,331 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
+2021-03-11 07:01:00,290 | make_preprocess_pipeline | INFO | Operator list
 Pipeline `preprocess` operator list
 	0 `drop_column`
 		Drop Ticket, Carbin column
@@ -18,5 +19,7 @@ Pipeline `preprocess` operator list
 		Make FamilySize, IsAlone, AgePclass
 	8 `convert_numeric_feature`
 		Group Fare
+	9 `select_feature_ver1`
+		Select 8 feature
 
-2021-03-11 02:41:53,098 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
+2021-03-11 07:01:00,292 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl

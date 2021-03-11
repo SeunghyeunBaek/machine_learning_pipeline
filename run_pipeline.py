@@ -4,9 +4,9 @@ import pandas as pd
 import os
 
 PRJ_DIR = os.path.dirname(__file__)
+PROCESSED_DATA_DIR = os.path.join(PRJ_DIR, 'output/data/')
 CONFIG_PATH = os.path.join(PRJ_DIR, 'config/config.yml')
 PIPELINE_PATH = os.path.join(PRJ_DIR, 'output/pipeline/preprocess_pipeline.pkl')
-PROCESSED_DATA_DIR = os.path.join(PRJ_DIR, 'output/data/')
 
 config_dict = load_yml(CONFIG_PATH)
 logger = set_logger(name='run_pipeline', dir=config_dict['dir']['log'])
@@ -25,4 +25,5 @@ if __name__ == '__main__':
     pipeline.run()
 
     # 전처리 데이터 저장
-    pipeline.save_data(path=os.path.join(PROCESSED_DATA_DIR, 'train_processed_data.pkl'))
+    pipeline.save_data(path=os.path.join(PROCESSED_DATA_DIR,
+                                         'train_processed_data.pkl'))

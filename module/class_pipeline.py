@@ -147,7 +147,7 @@ class Pipeline(BasePipeline):
         
         #TODO 예외처리: output_list 에 원소가 없을 때
         data = self.output_list[-1] if final_only else self.output_list
-        save_pickle(path, self)
+        save_pickle(path, data)
         msg = f"Save data {path}"
 
         if self.logger:
@@ -158,18 +158,22 @@ class Pipeline(BasePipeline):
 
     #TODO: pipeline 병합 시 기록, show_merge_history 에서 확인
     def merge(self, pipeline, show_operator:bool=True):
-        # self.merge_dict['pipeline'].append(pipeline)
-        # self.merge_dict['name'].append(pipeline.name)
+        """
+        Merge and make new pipeline instance
+        """
+        
+        front_pipeline = deepcopy(self)
+        back_pipeline = pipeline
 
-        self.operator_list.extend(pipeline.operator_list)
+        front_pipeline.operator_list.extend(back_pipeline.operator_list)
 
-        msg = f"Merge pipeline `{self.name}`, {pipeline.name}"
-        front_pipeline_operator_msg = self.show_operator()
-        back_pipeline_operator_msg = pipeline.show_operator()
+        msg = f"Merge pipeline `{front_pipeline.name}`, {back_pipeline.name}"
+        front_pipeline_operator_msg = front_pipeline.show_operator()
+        back_pipeline_operator_msg = back_pipeline.show_operator()
 
-        msg = msg + '\n' + f"`{self.name}`"
+        msg = msg + '\n' + f"`{front_pipeline.name}`"
         msg = msg + '\n' + front_pipeline_operator_msg
-        msg = msg + '\n' + f"`{pipeline.name}`"
+        msg = msg + '\n' + f"`<< {back_pipeline.name}`"
         msg = msg + '\n' + back_pipeline_operator_msg
 
         if self.logger:
@@ -178,8 +182,6 @@ class Pipeline(BasePipeline):
         else:
             print(msg)
         
-        # print(self.operator_list)
-        
-
+        return front_pipeline
 
     
