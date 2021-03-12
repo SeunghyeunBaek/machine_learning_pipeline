@@ -22,7 +22,6 @@ class BasePipeline(metaclass=ABCMeta):
         pass
 
 
-
 class BaseOperator(metaclass=ABCMeta):
 
     @abstractmethod
