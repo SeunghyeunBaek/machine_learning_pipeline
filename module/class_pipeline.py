@@ -1,3 +1,13 @@
+"""Pipeline, Operator 클래스 정의 스크립트
+
+    * Pipeline 클래스 정의
+    * Operator 클래스 정의
+    * 프로젝트에 따라 수정해서 사용
+
+TODO:
+    * Pipeline 분기 기능(merge) 추가
+"""
+
 from module.class_base import BasePipeline, BaseOperator
 from collections.abc import Callable
 from module.util import save_pickle
@@ -8,6 +18,13 @@ import logging
 
 class Operator(BaseOperator):
 
+    """Operator 클래스 정의
+
+    Pipeline 단위 실행 연산자 객체 생성을 위한 클래스
+
+    Attributes:
+
+    """
 
     def __init__(self, function: Callable, args: dict=dict(), description: str=""):
                 

@@ -1,13 +1,28 @@
-from itertools import product  # impute age
+"""Opeartor에 등록할 함수 정의
+
+    * 함수의 입력인자, 출력인자는 모두 `args`로 동일 하게 작성(함수 작성 가이드 참고)
+    * make_pipeline.py 에서 함수를 불러와 Operator 에 등록
+    * 함수 실행 시 로그를 저장하고 싶다면 `args['log']['함수명']` 에 할당
+
+Examples:
+    # 함수 작성 가이드
+    def sum_column(args: dict)-> dict:
+        ...
+        # 로그 저장
+        args['log']['sum_column'] = f'completed'
+
+        return args
+
+    # Operator 함수 등록 가이드(make_pipeline.py)
+    >> from module.class_pipeline import Operator
+    >> from module.func_operator import sum_column
+    >> function_name_op = Operator(function=sum_column,
+                                   description='sum_column')
+"""
+
+from itertools import product
 import pandas as pd
 
-
-"""
-def function_name(args: dict)-> dict
-    ...
-
-    return args
-"""
 
 def drop_column(args: dict) -> dict:
     drop_column_list = ['Ticket', 'Cabin']

@@ -1,3 +1,24 @@
+"""데이터 전처리 파이프라인 생성 스크립트
+
+    * Operator 객체 생성, 함수 등록
+    * Pipeline 객체 생성, Operator 객체 등록
+    * Pipeline 객체 pickle 형태로 저장
+
+Examples:
+    >> from module.class_pipeline improt Pipeline, Operator
+    >> from module.func_operator import custom_function, custom_function2
+    >> pipeline = Pipeline(name='preprocess')
+    >> custom_op = Operator(function=custom_function)
+    >> custom_op2 = Operator(function=custom_function2)
+    >> pipeline.add_operator([custom_op, custom_op2])
+    >> pipeline.save("preprocess_pipeline.pkl")
+
+TODO:
+    * Pipeline 분기 기능 추가
+    * Pipeline 저장 경로 구조 설계 
+
+"""
+
 from module.class_pipeline import Pipeline, Operator  # class 정의
 from module.util import load_yml, set_logger  # util
 from module.func_operator import *  # opeartion 함수 정의
@@ -69,5 +90,3 @@ if __name__ == '__main__':
 
     # pipeline 저장
     preprocess_pipe.save(path=os.path.join(PIPELINE_DIR, 'preprocess_pipeline.pkl'))
-
-    # TODO: pipeline 분기 설정

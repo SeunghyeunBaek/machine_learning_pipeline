@@ -1,3 +1,23 @@
+"""Pipeline 실행
+
+    * make_pipeline.py 에서 생성한 pipeline 실행
+    * 전처리 데이터 저장 
+
+Examples:
+    >> import pandas as pd
+    >> import pickle
+    >> with open("preprocess_pipeline.pkl", 'rb') as f:
+            pipeline = pickle.load(f)
+    >> df = pd.read_csv('data.csv')
+    >> pipeline.set_args({'df': df, 'log':dict()})
+    >> pipeline.run()
+    >> pipeline.save_data("preprocessed_data.pkl")
+
+TODO:
+    * 전처리 데이터 저장 경로 구조 설계
+
+"""
+
 from module.util import load_yml, set_logger  # util
 from module.util import load_pickle
 import pandas as pd
@@ -19,7 +39,7 @@ if __name__ == '__main__':
     # pipeline 불러오기
     pipeline = load_pickle(PIPELINE_PATH)
     pipeline.set_logger(logger=logger)
-    pipeline.set_args(args={'df': df, 'log': dict()})
+    pipeline.set_args(args={'df': df, 'log': dict()})  # 입력 데이터 설정
 
     # pipeline 실행
     pipeline.run()
