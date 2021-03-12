@@ -20,31 +20,51 @@ class Operator(BaseOperator):
 
     """Operator 클래스 정의
 
-    Pipeline 단위 실행 연산자 객체 생성을 위한 클래스
+    Pipeline 단위 실행 연산자 객체 클래스
 
     Attributes:
-
+        name (str): 이름
+        description (str): 설명, 객체 생성 시 등록
+        function (Callable): Operator가 실행할 함수
+        args (str): 입력인자
+        output (str): 출력인자 
     """
 
     def __init__(self, function: Callable, args: dict=dict(), description: str=""):
-                
-        self.function = function
+        
         self.name = self.function.__name__
-        self.args = args
         self.description = description
+        self.function = function
+        self.args = args
         self.output = None
 
 
     def set_args(self, args: dict):
+        """입력 인자 설정
+        Args:
+            args (dict): 입력인자
+        """
+
         self.args = args
 
 
     def run(self):
+        """Operator 실행
+        """
         self.output = self.function(self.args)
 
 
 class Pipeline(BasePipeline):
 
+    """Pipeline 객체 클래스
+
+    Attributes:
+        name (str): 이름
+        args (str): Pipeline 시작 시점의 입력 인자
+        operator_list (list): Pipeline 에 등록한 Operator 객체 리스트
+        output_list (list): Operator 가 실행될 때 마다 생성된 output 리스트
+        logger (`logging.RootLogger`, optional): Pipeline 에 등록한 logger 
+    """
 
     def __init__(self, name: str='pipeline', logger: logging.RootLogger=None):
         self.name = name
