@@ -6,6 +6,7 @@
 
 TODO:
     * Pipeline 분기 기능(merge) 추가
+    * 예외처리 기능 추가
 """
 
 from module.class_base import BasePipeline, BaseOperator

@@ -16,8 +16,8 @@ Examples:
     # Operator 함수 등록 가이드(make_pipeline.py)
     >> from module.class_pipeline import Operator
     >> from module.func_operator import sum_column
-    >> function_name_op = Operator(function=sum_column,
-                                   description='sum_column')
+    >> function_name_op = Operator(function=sum_column, description='sum_column')
+
 """
 
 from itertools import product
@@ -125,7 +125,6 @@ def convert_numeric_feature(args: dict)-> dict:
 
 
 def select_feature_ver1(args: dict)-> dict:
-
     feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass','Pclass', 'Survived']
     args['df'] = args['df'][feature_list]
 
@@ -136,7 +135,6 @@ def select_feature_ver1(args: dict)-> dict:
 
 
 def select_feature_ver2(args: dict)-> dict:
-
     feature_list = ['Sex','Title','Age','Embarked','IsAlone','Fare','AgePclass']
     args['df'] = args['df'][feature_list]
 
