@@ -28,6 +28,7 @@ class Operator(BaseOperator):
         function (Callable): Operator가 실행할 함수
         args (str): 입력인자
         output (str): 출력인자 
+
     """
 
     def __init__(self, function: Callable, args: dict=dict(), description: str="")-> None:
@@ -102,7 +103,7 @@ class Pipeline(BasePipeline):
             
             operator_list 내 모든 Operator 를 순차적으로 실행
             Operator 실행 후 생성된 output은 다음 Operator 의 args 로 입력
-            모든 output 은 output_list 에 저장
+            모든 output 은 output_list에 저장
             Opeartor 실행 시간 출력(logger 를 등록안하면 print 실행)
 
         """
@@ -133,7 +134,7 @@ class Pipeline(BasePipeline):
             self.output_list.append(operator.output)
 
 
-    def add_operator(self, operator:Operator)-> None:
+    def add_operator(self, operator: Operator)-> None:
         """Operator 객체 등록
 
             Operator list, Operator 객체 모두 입력 가능
@@ -288,7 +289,7 @@ class Pipeline(BasePipeline):
             print(msg)
 
     #TODO: pipeline 병합 시 기록, show_merge_history 에서 확인
-    def merge(self, pipeline, show_operator:bool=True)-> Pipeline:
+    def merge(self, pipeline, show_operator:bool=True)-> 'Pipeline':
         """두 Pipeline 연결
 
             두 pipeline 을 연결

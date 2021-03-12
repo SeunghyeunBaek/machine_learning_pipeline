@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     select_feature_op = Operator(function=select_feature_ver1,
                                  description='Select 8 feature')
-9
+
     # pipeline에 operator 등록
     operator_list = [drop_column_op,
                     extract_title_op, 

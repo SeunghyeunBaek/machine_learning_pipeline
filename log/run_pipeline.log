@@ -1,10 +1,10 @@
-2021-03-11 07:01:05,051 | run_pipeline | INFO | Load data train: (891, 12)
-2021-03-11 07:01:05,057 | run_pipeline | INFO | 0 operator drop_column elapsed at 0.003 s
-2021-03-11 07:01:05,064 | run_pipeline | INFO | 1 operator extract_title elapsed at 0.007 s
-2021-03-11 07:01:05,070 | run_pipeline | INFO | 2 operator replace_title elapsed at 0.006 s
-2021-03-11 07:01:05,073 | run_pipeline | INFO | 3 operator map_title elapsed at 0.003 s
-2021-03-11 07:01:05,080 | run_pipeline | INFO | 4 operator convert_categorical_column elapsed at 0.007 s
-2021-03-11 07:01:05,164 | run_pipeline | INFO | 5 operator impute_age elapsed at 0.084 s
+2021-03-12 04:31:54,106 | run_pipeline | INFO | Load data train: (891, 12)
+2021-03-12 04:31:54,113 | run_pipeline | INFO | 0 operator drop_column elapsed at 0.003 s
+2021-03-12 04:31:54,119 | run_pipeline | INFO | 1 operator extract_title elapsed at 0.006 s
+2021-03-12 04:31:54,126 | run_pipeline | INFO | 2 operator replace_title elapsed at 0.007 s
+2021-03-12 04:31:54,130 | run_pipeline | INFO | 3 operator map_title elapsed at 0.004 s
+2021-03-12 04:31:54,137 | run_pipeline | INFO | 4 operator convert_categorical_column elapsed at 0.007 s
+2021-03-12 04:31:54,213 | run_pipeline | INFO | 5 operator impute_age elapsed at 0.076 s
 	Number of na Age row: 177
 	impute age Sex: 0 Pclass: 1 Age imputed as 40.0 21 rows
 	impute age Sex: 0 Pclass: 2 Age imputed as 30.0 9 rows
@@ -13,9 +13,9 @@
 	impute age Sex: 1 Pclass: 2 Age imputed as 28.0 2 rows
 	impute age Sex: 1 Pclass: 3 Age imputed as 21.5 42 rows
 
-2021-03-11 07:01:05,173 | run_pipeline | INFO | 6 operator group_age elapsed at 0.008 s
-2021-03-11 07:01:05,179 | run_pipeline | INFO | 7 operator make_new_feature elapsed at 0.006 s
-2021-03-11 07:01:05,188 | run_pipeline | INFO | 8 operator convert_numeric_feature elapsed at 0.009 s
-2021-03-11 07:01:05,190 | run_pipeline | INFO | 9 operator select_feature_ver1 elapsed at 0.002 s
+2021-03-12 04:31:54,221 | run_pipeline | INFO | 6 operator group_age elapsed at 0.008 s
+2021-03-12 04:31:54,227 | run_pipeline | INFO | 7 operator make_new_feature elapsed at 0.006 s
+2021-03-12 04:31:54,235 | run_pipeline | INFO | 8 operator convert_numeric_feature elapsed at 0.008 s
+2021-03-12 04:31:54,237 | run_pipeline | INFO | 9 operator select_feature_ver1 elapsed at 0.002 s
 	Column ['Sex', 'Title', 'Age', 'Embarked', 'IsAlone', 'Fare', 'AgePclass', 'Pclass', 'Survived'] selected
-2021-03-11 07:01:05,192 | run_pipeline | INFO | Save data /workspace/pipeline/output/data/train_processed_data.pkl
+2021-03-12 04:31:54,238 | run_pipeline | INFO | Save data /workspace/template_pipeline/output/data/train_processed_data.pkl

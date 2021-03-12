@@ -1,5 +1,4 @@
-2021-03-11 07:00:25,331 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
-2021-03-11 07:01:00,290 | make_preprocess_pipeline | INFO | Operator list
+2021-03-12 04:31:36,245 | make_preprocess_pipeline | INFO | Operator list
 Pipeline `preprocess` operator list
 	0 `drop_column`
 		Drop Ticket, Carbin column
@@ -22,28 +21,4 @@ Pipeline `preprocess` operator list
 	9 `select_feature_ver1`
 		Select 8 feature
 
-2021-03-11 07:01:00,292 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
-2021-03-12 01:48:55,885 | make_preprocess_pipeline | INFO | Operator list
-Pipeline `preprocess` operator list
-	0 `drop_column`
-		Drop Ticket, Carbin column
-	1 `extract_title`
-		Extract title from Name column
-	2 `replace_title`
-		Replace title(Rare, Miss, Mrs)
-	3 `map_title`
-		Mapping title to integer
-	4 `convert_categorical_column`
-		Convert female, male to 0, 1
-	5 `impute_age`
-		Impute age as median for each sex, pclass
-	6 `group_age`
-		Make age groups
-	7 `make_new_feature`
-		Make FamilySize, IsAlone, AgePclass
-	8 `convert_numeric_feature`
-		Group Fare
-	9 `select_feature_ver1`
-		Select 8 feature
-
-2021-03-12 01:48:55,887 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/pipeline/output/pipeline/preprocess_pipeline.pkl
+2021-03-12 04:31:36,247 | make_preprocess_pipeline | INFO | Pipeline `preprocess` saved /workspace/template_pipeline/output/pipeline/preprocess_pipeline.pkl
