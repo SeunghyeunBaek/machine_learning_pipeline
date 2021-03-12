@@ -15,7 +15,6 @@ from copy import deepcopy
 from time import time
 import logging
 
-
 class Operator(BaseOperator):
 
     """Operator 클래스 정의
@@ -23,23 +22,23 @@ class Operator(BaseOperator):
     Pipeline 단위 실행 연산자 객체 클래스
 
     Attributes:
-        name (str): 이름
+        name (str): 이름, 함수명으로 자동 설정
         description (str): 설명, 객체 생성 시 등록
         function (Callable): Operator가 실행할 함수
         args (str): 입력인자
         output (str): 출력인자 
     """
 
-    def __init__(self, function: Callable, args: dict=dict(), description: str=""):
+    def __init__(self, function: Callable, args: dict=dict(), description: str="")-> None:
         
-        self.name = self.function.__name__
+        self.name = function.__name__
         self.description = description
         self.function = function
         self.args = args
         self.output = None
 
 
-    def set_args(self, args: dict):
+    def set_args(self, args: dict)-> None:
         """입력 인자 설정
         Args:
             args (dict): 입력인자
@@ -48,7 +47,7 @@ class Operator(BaseOperator):
         self.args = args
 
 
-    def run(self):
+    def run(self)-> None:
         """Operator 실행
         """
         self.output = self.function(self.args)
@@ -66,7 +65,7 @@ class Pipeline(BasePipeline):
         logger (`logging.RootLogger`, optional): Pipeline 에 등록한 logger 
     """
 
-    def __init__(self, name: str='pipeline', logger: logging.RootLogger=None):
+    def __init__(self, name: str='pipeline', logger: logging.RootLogger=None)-> None:
         self.name = name
         self.args = dict()
         self.operator_list = list()
@@ -76,15 +75,36 @@ class Pipeline(BasePipeline):
         # self.merge_dict = {'pipeline': [self], 'name': [self.name]}
 
 
-    def set_args(self, args: dict):
+    def set_args(self, args: dict)-> None:
+        """Pipeline 시작 시점의 입력 인자 설정
+        
+        Args:
+            args(dict): 입력 인자
+        """
+
         self.args = args
 
     #TODO: Depreceted, init 함수에 포함
-    def set_logger(self, logger: logging.RootLogger):
+    def set_logger(self, logger: logging.RootLogger)-> None:
+        """Logger 객체 등록
+        
+        Args:
+            logger(`logging.RootLogger`): logger 객체
+
+        """
+
         self.logger = logger
 
 
-    def run(self):
+    def run(self)-> None:
+        """Pipeline 실행
+            
+            operator_list 내 모든 Operator 를 순차적으로 실행
+            Operator 실행 후 생성된 output은 다음 Operator 의 args 로 입력
+            모든 output 은 output_list 에 저장
+            Opeartor 실행 시간 출력(logger 를 등록안하면 print 실행)
+
+        """
         
         for i, operator in enumerate(self.operator_list):
             
@@ -112,7 +132,19 @@ class Pipeline(BasePipeline):
             self.output_list.append(operator.output)
 
 
-    def add_operator(self, operator:Operator):
+    def add_operator(self, operator:Operator)-> None:
+        """Operator 객체 등록
+
+            Operator list, Operator 객체 모두 입력 가능
+
+        Args:
+            operator(Operator, list(Operator)): Operator 객체 또는 Operator 객체 list
+        
+        Examples:
+            >> pipeline.add_operator([op1, op2, op3])
+            >> pipeline.add_oeprator(op1)
+
+        """
         
         if type(operator) == list:
             self.operator_list += operator
@@ -125,7 +157,18 @@ class Pipeline(BasePipeline):
         print(msg)
 
 
-    def remove_operator(self, name: str):
+    def remove_operator(self, name: str)-> None:
+        """Pipeline 에서 Operator 삭제
+            
+            Opeartor 이름으로 삭제
+
+        Args:
+            name (str): Operator 이름
+        
+        Note:
+            pipeline내 name 에 해당하는 operator 가 없으면 "No operator {name} exists" 출력
+
+        """
 
         operator_name_list = [operator.name for operator in self.operator_list]
         
@@ -139,8 +182,39 @@ class Pipeline(BasePipeline):
         print(msg)
 
 
-    def show_operator(self, description=False):
-        
+    def show_operator(self, description=False)-> None:
+        """Opeartor list 출력
+            
+            pipeline 에 등록한 operator 출력
+
+        Args:
+            description (bool, optional): Operator description 출력 여부
+
+        Examples:
+            >> pipeline.show_operator(description=True)
+            >> Pipeline `preprocess` operator list
+                0 `drop_column`
+                        Drop Ticket, Carbin column
+                1 `extract_title`
+                        Extract title from Name column
+                2 `replace_title`
+                        Replace title(Rare, Miss, Mrs)
+                3 `map_title`
+                        Mapping title to integer
+                4 `convert_categorical_column`
+                        Convert female, male to 0, 1
+                5 `impute_age`
+                        Impute age as median for each sex, pclass
+                6 `group_age`
+                        Make age groups
+                7 `make_new_feature`
+                        Make FamilySize, IsAlone, AgePclass
+                8 `convert_numeric_feature`
+                        Group Fare
+                9 `select_feature_ver1`
+                        Select 8 feature
+        """
+
         msg = f"Pipeline `{self.name}` operator list\n"
 
         if self.operator_list:
@@ -161,7 +235,17 @@ class Pipeline(BasePipeline):
         return msg
     
 
-    def save(self, path: str, clear_data=True):
+    def save(self, path: str, clear_data=True)-> None:
+        """Pipeline 저장
+
+            Pipeline 객체를 pickle 형태로 저장
+
+        Args:
+            path (str): 저장 경로
+            clear_data (bool, optional): False 로 설정시 output_list, args 모두 저장 
+
+        """
+
         pipeline = deepcopy(self)
 
         if clear_data:
@@ -180,8 +264,17 @@ class Pipeline(BasePipeline):
         del pipeline
 
 
-    def save_data(self, path: str, final_only: bool=True):
-        
+    def save_data(self, path: str, final_only: bool=True)-> None:
+        """pipeline 수행 후 데이터 저장
+
+            output_list 를 pickle 형태로 저장
+
+        Args:
+            path (str): 데이터 저장 경로
+            final_only (bool): True 로 설정 시 output_list 의 마지막 원소만 저장
+
+        """
+
         #TODO 예외처리: output_list 에 원소가 없을 때
         data = self.output_list[-1] if final_only else self.output_list
         save_pickle(path, data)
@@ -194,9 +287,21 @@ class Pipeline(BasePipeline):
             print(msg)
 
     #TODO: pipeline 병합 시 기록, show_merge_history 에서 확인
-    def merge(self, pipeline, show_operator:bool=True):
-        """
-        Merge and make new pipeline instance
+    def merge(self, pipeline, show_operator:bool=True)-> Pipeline:
+        """두 Pipeline 연결
+
+            두 pipeline 을 연결
+
+            Args:
+                pipeline (`Pipeline`): 뒤쪽에 연결하는 pipeline
+                show_operator (bool, optional): True 로 설정 시 연결 후 operator_list 출력
+
+            Returns:
+                `Pipeline`: 연결한 pipeline
+
+            Examples:
+                >> merged_pipeline = front_pipeline.merge(pipeline=back_pipeline, show_operator=True)
+
         """
         
         front_pipeline = deepcopy(self)
